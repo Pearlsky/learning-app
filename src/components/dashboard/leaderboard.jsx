@@ -6,16 +6,19 @@ import LeaderboardItem from "./leaderboard-item";
 const leadersData = [
   {
     name: "Hanky Panky",
+    initials: "HP",
     country: "Taiwan",
     score: 1930,
   },
   {
     name: "John Wicked",
+    initials: "JW",
     country: "Nigeria",
     score: 1430,
   },
   {
     name: "Toron Toast",
+    initials: "TT",
     country: "Canada",
     score: 1130,
   },

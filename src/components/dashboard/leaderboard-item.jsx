@@ -2,10 +2,14 @@
 import { IoFlameSharp } from "react-icons/io5";
 import { HiOutlineArrowUp } from "react-icons/hi2";
 
-const LeaderboardItem = ({ name, country, score }) => (
+const LeaderboardItem = ({ name, country, score, initials }) => (
   <article className="flex items-center gap-4 p-4 rounded-2xl bg-white">
     <div>
-      <article className="w-fit p-6 border-[2.5px] border-secorange rounded-full"></article>
+      <article className="h-16 w-16 border-[2.5px] border-secorange rounded-full">
+        <div className="w-full h-full flex justify-center items-center rounded-full bg-secorange bg-opacity-40">
+          <span>{initials}</span>
+        </div>
+      </article>
     </div>
     <div className="flex flex-col">
       <span className="text-lg font-normal">{name}</span>
