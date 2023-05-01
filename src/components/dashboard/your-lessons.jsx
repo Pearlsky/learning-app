@@ -6,37 +6,37 @@ import { CiSquareChevRight } from "react-icons/ci";
 const lessonsData = [
   {
     title: "Pancakes 101",
-    thumbnail: "bg-[url('./pancakes.svg')]",
+    thumbnail: "bg-[url('/pancakes.svg')]",
     duration: "30 days",
     frequency: "daily",
   },
   {
     title: "Intro to Sushi",
-    thumbnail: "bg-[url('./sushi.svg')]",
+    thumbnail: "bg-[url('/sushi.svg')]",
     duration: "15 days",
     frequency: "daily",
   },
   {
     title: "Ramen Diaries",
-    thumbnail: "bg-[url('./ramen.svg')]",
+    thumbnail: "bg-[url('/ramen.svg')]",
     duration: "4 weeks",
     frequency: "weekly",
   },
   {
     title: "Taco no Baco",
-    thumbnail: "bg-[url('./taco.svg')]",
+    thumbnail: "bg-[url('/taco.svg')]",
     duration: "5 weeks",
     frequency: "weekly",
   },
   {
     title: "Doughs & Nuts",
-    thumbnail: "bg-[url('./doughnut.svg')]",
+    thumbnail: "bg-[url('/doughnut.svg')]",
     duration: "3 months",
     frequency: "monthly",
   },
   {
     title: "Burgerly",
-    thumbnail: "bg-[url('./burger.svg')]",
+    thumbnail: "bg-[url('/burger.svg')]",
     duration: "80 days",
     frequency: "daily",
   },
