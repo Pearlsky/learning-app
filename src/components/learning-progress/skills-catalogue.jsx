@@ -34,15 +34,17 @@ const skillsData = [
 
 const SkillsCatalogue = () => (
   <>
-    <SectionHeading heading="Skills">
-      <Button label="options">
-        <SlOptions className="text-pryblue text-xl" />
-      </Button>
-    </SectionHeading>
-    <div className="grid grid-cols-2 gap-x-4 gap-y-6">
-      {skillsData.map((skill, index) => (
-        <Skill key={`${index + 1}-${skill.title}`} {...skill} />
-      ))}
+    <div className="flex flex-col gap-6 ">
+      <SectionHeading heading="Skills">
+        <Button label="options">
+          <SlOptions className="text-pryblue text-xl" />
+        </Button>
+      </SectionHeading>
+      <div className="grid grid-cols-2 gap-x-4 gap-y-6">
+        {skillsData.map((skill, index) => (
+          <Skill key={`${index + 1}-${skill.title}`} {...skill} />
+        ))}
+      </div>
     </div>
   </>
 );
