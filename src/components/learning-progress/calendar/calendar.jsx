@@ -15,6 +15,7 @@ const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
 
 const Calendar = () => {
   const [date, setDate] = useState(new Date());
+  const [currentDate] = useState(() => new Date().getDate());
   const [daysInMonthArray, setDaysInMonthsArray] = useState([]);
   const [fullMonthDetails, setFullMonthDetails] = useState({});
   const { month, monthIndex, monthWeeks } = fullMonthDetails;
@@ -30,7 +31,11 @@ const Calendar = () => {
         <CalenderDay key={`${index + 1}-${Math.random()}`}>{}</CalenderDay>
       )),
       ...Array.from({ length: monthDays }).map((_, index) => (
-        <CalenderDay key={`${index + 1}-${Math.random()}`}>
+        <CalenderDay
+          key={`${index + 1}-${Math.random()}`}
+          weekDate={index + 1}
+          currentDate={currentDate}
+        >
           {index + 1}
         </CalenderDay>
       )),
@@ -39,7 +44,7 @@ const Calendar = () => {
       )),
     ]);
     setFullMonthDetails(data);
-  }, [date]);
+  }, [date, currentDate]);
 
   // | note: (refactor) to util helper function
   //   date wrangling
@@ -53,6 +58,9 @@ const Calendar = () => {
   const prevWeekHandler = () => {
     if (currWeek === 1 && monthIndex !== 0) {
       setDate(() => new Date(2023, monthIndex - 1));
+      //note: (refactor) this value should not be hardcode
+      setCurrWeek(() => 5);
+
       console.log(date);
     }
 
@@ -62,12 +70,13 @@ const Calendar = () => {
   };
 
   const nextWeekHandler = () => {
-    if (currWeek < monthWeeks) {
-      setCurrWeek((prev) => prev + 1);
+    if (currWeek === monthWeeks) {
+      setDate(() => new Date(2023, monthIndex + 1, 1));
+      setCurrWeek(() => 1);
     }
 
-    if (currWeek === monthWeeks) {
-      setDate(() => new Date(2023, monthIndex + 1));
+    if (currWeek < monthWeeks) {
+      setCurrWeek((prev) => prev + 1);
     }
   };
 
