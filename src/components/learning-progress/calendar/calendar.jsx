@@ -1,45 +1,48 @@
 /* eslint-disable react/prop-types */
-import {
-  differenceInDays,
-  endOfMonth,
-  getWeeksInMonth,
-  startOfMonth,
-} from "date-fns";
 import CalenderDay from "./calendar-day";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Weekday from "./weekday";
 import Button from "@/components/button";
 import { CiSquareChevLeft, CiSquareChevRight } from "react-icons/ci";
+import { getFullMonthDetails } from "@/utils";
 
 /**
  * getMonthDays, paginate weeks.
+ * get next month & monthdays @ the end of individual month weeks
  */
 
 const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
 
-const Calendar = ({ date = new Date() }) => {
+const Calendar = () => {
+  const [date, setDate] = useState(new Date());
+  const [daysInMonthArray, setDaysInMonthsArray] = useState([]);
+  const [fullMonthDetails, setFullMonthDetails] = useState({});
+  const { month, monthIndex, monthWeeks } = fullMonthDetails;
+
   const [currWeek, setCurrWeek] = useState(1);
   const [daysPerWeek] = useState(7);
 
-  //   date wrangling
-  const startDay = startOfMonth(date);
-  const endDay = endOfMonth(date);
-  const monthWeeks = getWeeksInMonth(date);
-  const monthDays = differenceInDays(endDay, startDay) + 1;
-  const preDays = startDay.getDay();
-  const postDays = endDay.getDay();
+  useEffect(() => {
+    const data = getFullMonthDetails(date);
+    const { preDays, monthDays, postDays } = data;
+    setDaysInMonthsArray(() => [
+      ...Array.from({ length: preDays }).map((_, index) => (
+        <CalenderDay key={`${index + 1}-${Math.random()}`}>{}</CalenderDay>
+      )),
+      ...Array.from({ length: monthDays }).map((_, index) => (
+        <CalenderDay key={`${index + 1}-${Math.random()}`}>
+          {index + 1}
+        </CalenderDay>
+      )),
+      ...Array.from({ length: postDays }).map((_, index) => (
+        <CalenderDay key={`${index + 1}-${Math.random()}`}>{}</CalenderDay>
+      )),
+    ]);
+    setFullMonthDetails(data);
+  }, [date]);
 
-  const daysInMonthArray = [
-    ...Array.from({ length: preDays }).map((_, index) => (
-      <CalenderDay key={`${index + 1}-${Math.random()}`} />
-    )),
-    ...Array.from({ length: monthDays }).map((_, index) => (
-      <CalenderDay key={`${index + 1}-${Math.random()}`} weekDate={index + 1} />
-    )),
-    ...Array.from({ length: postDays }).map((_, index) => (
-      <CalenderDay key={`${index + 1}-${Math.random()}`} />
-    )),
-  ];
+  // | note: (refactor) to util helper function
+  //   date wrangling
 
   //   pagination of weeks
   const indexOfLastDay = currWeek * daysPerWeek;
@@ -47,8 +50,12 @@ const Calendar = ({ date = new Date() }) => {
   const currentDays = daysInMonthArray.slice(indexOfFirstDay, indexOfLastDay);
 
   //   pagination handlers
-
   const prevWeekHandler = () => {
+    if (currWeek === 1 && monthIndex !== 0) {
+      setDate(() => new Date(2023, monthIndex - 1));
+      console.log(date);
+    }
+
     if (currWeek > 1) {
       setCurrWeek((prev) => prev - 1);
     }
@@ -57,6 +64,10 @@ const Calendar = ({ date = new Date() }) => {
   const nextWeekHandler = () => {
     if (currWeek < monthWeeks) {
       setCurrWeek((prev) => prev + 1);
+    }
+
+    if (currWeek === monthWeeks) {
+      setDate(() => new Date(2023, monthIndex + 1));
     }
   };
 
@@ -74,7 +85,7 @@ const Calendar = ({ date = new Date() }) => {
               <CiSquareChevLeft className="text-pryblue text-3xl" />
             </Button>
             <div>
-              <h2 className="text-xl font-medium">May</h2>
+              <h2 className="text-xl font-medium">{month}</h2>
             </div>
             <Button
               label="next"
