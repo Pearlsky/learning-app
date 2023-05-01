@@ -1,7 +1,7 @@
 import { IoFlameSharp } from "react-icons/io5";
 import StatusRing from "./status-ring";
 const Status = () => (
-  <section className="flex items-center justify-between gap-6 px-4 py-2 border-[1.5px] border-pryblue rounded-2xl bg-white">
+  <section className="flex items-center justify-between gap-4 px-4 py-2 border-[1.5px] border-pryblue rounded-2xl bg-white">
     <div>
       <span className="text-xs text-pryblue">Today&apos;s goal</span>
       <StatusRing />
